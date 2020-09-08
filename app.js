@@ -10,6 +10,7 @@ const PORT = process.env.PORT || 4001
 
 // Routes
 const authRoutes = require('./routes/authRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 const restaurantRoutes = require('./routes/restaurantRoutes');
 
 // Adding middleware (these are executed for every request)
@@ -33,6 +34,7 @@ app.get('/', (req, res, next) => {
 
 // Using the routes
 app.use('/api/v1/auth', authRoutes);
+app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/restaurant', restaurantRoutes);
 
 app.listen(PORT);
