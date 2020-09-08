@@ -1,26 +1,15 @@
-const Sequelize = require('sequelize');
+// Modelo Usuario
 
-const sequelize = require('../util/database');
 
-const User = sequelize.define('user', {
-    id: {
-        type: Sequelize.INTEGER,
-        autoIncrement: true,
-        allowNull: false,
-        primaryKey: true
-    },
-    email: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    password: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    name: {
-        type: Sequelize.STRING,
-        allowNull: false
+class User {
+    constructor(email, username, password, name, lastName) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.name = name;
+        this.lastName = lastName;
     }
-})
+
+}
 
 module.exports = User;
