@@ -3,7 +3,7 @@ const User = require('../models/userModel');
 const axios = require('axios');
 
 exports.postSignup = (req, res, next) => {
-    const user = new User(req.body.email, req.body.username, req.body.password, req.body.name, req.body.lastName);
+    const user = new User(req.body.email, req.body.username, req.body.password, req.body.name, req.body.lastName); // TODO: Deestructure!
 
     // Accediendo al microservicio de autenticación para registro
     axios.post(`${process.env.AUTH}/signup`, user)
@@ -19,7 +19,7 @@ exports.postSignup = (req, res, next) => {
 }
 
 exports.postLogin = (req, res, next) => {
-    const user = { username: req.body.username, password: req.body.password };
+    const user = { username: req.body.username, password: req.body.password }; // TODO: Deestructure!
 
     // Lo mismo que registro
     axios.post(`${process.env.AUTH}/login`, user)

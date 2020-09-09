@@ -33,8 +33,8 @@ app.get('/', (req, res, next) => {
 })
 
 // Using the routes
+app.use('/api/v1', restaurantRoutes); // ritas generales del restaurant y casi todo
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/admin', adminRoutes);
-app.use('/api/v1/restaurant', restaurantRoutes);
 
 app.listen(PORT);

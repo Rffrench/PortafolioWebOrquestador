@@ -1,5 +1,5 @@
 // Controlador restaurante
 
-exports.getIndex = (req, res, next) => {
-    res.render('restaurant/index', { pageTitle: 'Restaurante Siglo XXI', path: '/' });
+exports.getNewOrder = (req, res, next) => {
+    res.send('Cliente autorizado con ID: ' + req.userId);
 }
