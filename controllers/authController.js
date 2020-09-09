@@ -2,6 +2,8 @@
 const User = require('../models/userModel');
 const axios = require('axios');
 
+// Toda API REST debe enviar siempre el código HTTP de respuesta dependiendo el resultado de esta. Por ej: 201 se creó algo, 403 Forbidden, 200 OK, etc
+
 exports.postSignup = (req, res, next) => {
     const user = new User(req.body.email, req.body.username, req.body.password, req.body.name, req.body.lastName); // TODO: Deestructure!
 

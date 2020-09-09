@@ -1,4 +1,4 @@
-// MIddleware que se ejecuta antes de cada ruta que necesite verificar Autorización o Autenticación. Siempre se crea uno
+// MIddleware que se ejecuta antes de cada ruta que necesite Autenticación. Siempre se crea uno. Luego en el siguiente middleware se verifica el rol para ver si puede acceder a ese recurso
 
 const jwt = require('jsonwebtoken');
 
@@ -23,6 +23,7 @@ module.exports = (req, res, next) => {
         throw error;
     }
     req.userId = decodedToken.userId;
+    req.roleId = decodedToken.roleId;
     // agregar role ID
     next();
 };
