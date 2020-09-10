@@ -1,8 +1,23 @@
 const axios = require('axios');
 
-
+// Obtener listado de cliente
 exports.getCustomers = (req, res, next) => {
     axios.get(`${process.env.ADMIN}/customers`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            next(err);
+        })
+}
+
+// Obtener un solo cliente
+exports.getCustomer = (req, res, next) => {
+    const userId = req.params.userId;
+
+    axios.get(`${process.env.ADMIN}/customers/${userId}`)
         .then(response => {
             console.log(response.data);
 
@@ -35,7 +50,6 @@ exports.putCustomer = (req, res, next) => {
 }
 
 exports.deleteCustomer = (req, res, next) => {
-
     const userId = req.params.userId;
 
     axios.delete(`${process.env.ADMIN}/customers/${userId}`)
