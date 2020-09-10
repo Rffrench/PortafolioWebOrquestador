@@ -33,3 +33,17 @@ exports.putCustomer = (req, res, next) => {
         })
 
 }
+
+exports.deleteCustomer = (req, res, next) => {
+
+    const userId = req.params.userId;
+
+    axios.delete(`${process.env.ADMIN}/customers/${userId}`)
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            next(err);
+        })
+
+}
