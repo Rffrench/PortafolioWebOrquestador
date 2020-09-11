@@ -12,7 +12,7 @@ router.delete('/customers/:userId', adminController.deleteCustomer);
 // Products
 router.get('/products', adminController.getProducts);
 router.get('/products/:productId', adminController.getProduct);
-router.post('/products/:productId', adminController.postProduct);
+router.post('/products/', adminController.postProduct);
 router.put('/products/:productId', adminController.putProduct);
 router.delete('/products/:productId', adminController.deleteProduct);
 

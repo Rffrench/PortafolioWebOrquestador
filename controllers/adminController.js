@@ -99,15 +99,13 @@ exports.getProduct = (req, res, next) => {
 }
 
 exports.postProduct = (req, res, next) => {
-
-    const productId = req.params.productId;
-    const [newName, newQuantity] = [req.body.newName, req.body.newQuantity];
+    const [name, quantity] = [req.body.name, req.body.quantity];
 
 
-    axios.post(`${process.env.ADMIN}/products/${productId}`,
+    axios.post(`${process.env.ADMIN}/products`,
         {
-            newName: newName,
-            newQuantity: newQuantity
+            name: name,
+            quantity: quantity
         })
         .then(response => {
             res.status(201).json(response.data);
