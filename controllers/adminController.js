@@ -148,3 +148,89 @@ exports.deleteProduct = (req, res, next) => {
         })
 
 }
+
+
+
+
+
+
+// MESAS
+
+exports.getTables = (req, res, next) => {
+    axios.get(`${process.env.ADMIN}/tables`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            next(err);
+        })
+}
+
+
+exports.getTable = (req, res, next) => {
+    const tableId = req.params.tableId;
+
+    axios.get(`${process.env.ADMIN}/tables/${tableId}`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            next(err);
+        })
+}
+
+exports.postTable = (req, res, next) => {
+    const [capacity, isAvailable] = [req.body.capacity, req.body.isAvailable];
+
+
+    axios.post(`${process.env.ADMIN}/tables`,
+        {
+            capacity: capacity,
+            isAvailable: isAvailable
+        })
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            next(err);
+        })
+
+}
+
+exports.putTable = (req, res, next) => {
+
+    const tableId = req.params.tableId;
+    const [capacity, isAvailable, userId] = [req.body.capacity, req.body.isAvailable, req.body.userId || null];
+
+
+    axios.put(`${process.env.ADMIN}/tables/${tableId}`,
+        {
+            capacity: capacity,
+            isAvailable: isAvailable,
+            userId: userId
+        })
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            next(err);
+        })
+
+}
+
+exports.deleteTable = (req, res, next) => {
+    const tableId = req.params.tableId;
+
+    axios.delete(`${process.env.ADMIN}/tables/${tableId}`)
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            next(err);
+        })
+
+}
