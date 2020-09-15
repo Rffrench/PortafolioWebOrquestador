@@ -204,7 +204,7 @@ exports.postTable = (req, res, next) => {
 exports.putTable = (req, res, next) => {
 
     const tableId = req.params.tableId;
-    const [capacity, isAvailable, userId] = [req.body.capacity, req.body.isAvailable, req.body.userId || null];
+    const [capacity, isAvailable, userId] = [req.body.capacity, req.body.isAvailable, req.body.userId];
 
 
     axios.put(`${process.env.ADMIN}/tables/${tableId}`,

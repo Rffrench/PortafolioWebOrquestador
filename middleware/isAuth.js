@@ -11,6 +11,7 @@ module.exports = (req, res, next) => {
     }
     const token = authHeader.split(' ')[1]; // Bearer va primero y luego el token se obtiene
     let decodedToken;
+
     try {
         decodedToken = jwt.verify(token, 'llavetoken'); // El secret debería ir en un ENV
     } catch (err) {
