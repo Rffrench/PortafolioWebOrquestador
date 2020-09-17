@@ -10,6 +10,7 @@ const isAuth = require('../middleware/isAuth');
 // Rutas vistas reservas para ver si se le carga la pag al usuario o no
 router.get('/reservations/menu', isAuth, restaurantController.getReservationsMenu)
 router.get('/reservations/new', isAuth, restaurantController.getNewReservation);
+router.get('/reservations/cancel', isAuth, restaurantController.getCancelReservation);
 // CRD Reservas
 router.get('/reservations', restaurantController.getReservations);
 router.post('/reservations', restaurantController.postReservation);

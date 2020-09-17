@@ -4,7 +4,7 @@
 
 const axios = require('axios');
 const checkRoles = require('../util/checkRoles'); // archivo importado que tiene funciones para chequear cada rol
-
+const Reservation = require('../models/reservationsModel');
 
 
 // RESERVAS
@@ -19,6 +19,20 @@ exports.getNewReservation = (req, res, next) => {
     res.status(200).send('Cliente autorizado con ID: ' + req.userId);
 }
 
+exports.getCancelReservation = (req, res, next) => {
+    checkRoles.checkIfCustomer(req.roleId);
+
+    axios.get(`${process.env.RESTAURANT}/reservations/${req.userId}`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(200).json(response.data);
+        })
+        .catch(err => {
+            next(err.response);
+        })
+}
+
 // Endpoints reservas
 exports.getReservations = (req, res, next) => {
     axios.get(`${process.env.RESTAURANT}/reservations`)
@@ -31,7 +45,6 @@ exports.getReservations = (req, res, next) => {
             next(err);
         })
 }
-
 
 exports.getReservation = (req, res, next) => {
     const userId = req.params.userId;
@@ -48,16 +61,11 @@ exports.getReservation = (req, res, next) => {
 }
 
 exports.postReservation = (req, res, next) => {
-    const [reservationDate, reservationTime, party, userId] = [req.body.reservationDate, req.body.reservationTime, req.body.party, req.body.userId];
+    const reservation = new Reservation(req.body.reservationDate, req.body.reservationTime, req.body.party, req.body.userId);
 
 
     axios.post(`${process.env.RESTAURANT}/reservations`,
-        {
-            reservationDate: reservationDate,
-            reservationTime: reservationTime,
-            party: party,
-            userId: userId
-        })
+        reservation)
         .then(response => {
             res.status(201).json(response.data);
         })
