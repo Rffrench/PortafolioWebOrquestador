@@ -29,7 +29,14 @@ exports.getCancelReservation = (req, res, next) => {
             res.status(200).json(response.data);
         })
         .catch(err => {
-            next(err.response);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 }
 
@@ -42,7 +49,14 @@ exports.getReservations = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 }
 
@@ -56,7 +70,14 @@ exports.getReservation = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 }
 
@@ -70,7 +91,14 @@ exports.postReservation = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 
 }
@@ -83,7 +111,14 @@ exports.deleteReservation = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 
 }

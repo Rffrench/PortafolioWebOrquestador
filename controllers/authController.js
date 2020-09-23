@@ -2,7 +2,8 @@
 const User = require('../models/userModel');
 const axios = require('axios');
 
-// Toda API REST debe enviar siempre el código HTTP de respuesta dependiendo el resultado de esta. Por ej: 201 se creó algo, 403 Forbidden, 200 OK, etc
+// Toda API REST debe enviar siempre el código HTTP de respuesta dependiendo el resultado de esta. Por ej: 201 se creó algo, 403 Forbidden, 200 OK, etc.
+// Además, como hay microservicios, los errores se deben de volver a modificar en el catch(), sino se mandarian errores 500 siempre. Por ej, el login manda un 401 si esque esta mal la contraseña o el usuario, eso se debe de especificar de nuevo en el statusCode para que al front le llegue el codigo correcto.
 
 exports.postSignup = (req, res, next) => {
     const user = new User(req.body.email, req.body.username, req.body.password, req.body.name, req.body.lastName); // TODO: Deestructure!
@@ -14,9 +15,16 @@ exports.postSignup = (req, res, next) => {
             res.status(201).json(response.data); // response.data para que no haya problemas con el JSON
 
         })
-        .catch(err => {
-            console.log(err);
-            next(err);
+        .catch(err => {//  TODO: Change catching blocks to keep nesting the errors
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+
         })
 }
 
@@ -30,9 +38,15 @@ exports.postLogin = (req, res, next) => {
             res.status(201).json(response.data); // response.data para que no haya problemas con el JSON
 
         })
-        .catch(err => {
-            console.log(err);
-            next(err);
+        .catch(err => { //  TODO: Change catching blocks to keep nesting the errors
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 
 }

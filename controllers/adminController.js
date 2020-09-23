@@ -13,7 +13,14 @@ exports.getCustomers = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 }
 
@@ -28,7 +35,14 @@ exports.getCustomer = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 }
 
@@ -48,7 +62,14 @@ exports.putCustomer = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 
 }
@@ -61,7 +82,14 @@ exports.deleteCustomer = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 
 }
@@ -79,7 +107,14 @@ exports.getProducts = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 }
 
@@ -94,7 +129,14 @@ exports.getProduct = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 }
 
@@ -111,7 +153,14 @@ exports.postProduct = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 
 }
@@ -131,7 +180,14 @@ exports.putProduct = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 
 }
@@ -144,7 +200,14 @@ exports.deleteProduct = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 
 }
@@ -164,7 +227,14 @@ exports.getTables = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 }
 
@@ -179,7 +249,14 @@ exports.getTable = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 }
 
@@ -196,7 +273,14 @@ exports.postTable = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 
 }
@@ -217,7 +301,14 @@ exports.putTable = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 
 }
@@ -230,7 +321,14 @@ exports.deleteTable = (req, res, next) => {
             res.status(201).json(response.data);
         })
         .catch(err => {
-            next(err);
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
         })
 
 }

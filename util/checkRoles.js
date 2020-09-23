@@ -9,7 +9,7 @@ exports.checkIfCustomer = (roleId) => {
 }
 
 exports.checkIfAdmin = (roleId) => {
-    if (roleId != 2) { // SI no es cliente el tipo de usuario, error
+    if (roleId != 2) {
         const error = new Error('No tiene el rol necesario para acceder acá')
         error.statusCode = 403; // Forbidden
         throw error;
@@ -17,7 +17,7 @@ exports.checkIfAdmin = (roleId) => {
 }
 
 exports.checkIfWarehouse = (roleId) => {
-    if (roleId != 3) { // SI no es cliente el tipo de usuario, error
+    if (roleId != 3) {
         const error = new Error('No tiene el rol necesario para acceder acá')
         error.statusCode = 403; // Forbidden
         throw error;
@@ -25,7 +25,7 @@ exports.checkIfWarehouse = (roleId) => {
 }
 
 exports.checkIfFinance = (roleId) => {
-    if (roleId != 4) { // SI no es cliente el tipo de usuario, error
+    if (roleId != 4) {
         const error = new Error('No tiene el rol necesario para acceder acá')
         error.statusCode = 403; // Forbidden
         throw error;
@@ -33,7 +33,7 @@ exports.checkIfFinance = (roleId) => {
 }
 
 exports.checkIfKitchen = (roleId) => {
-    if (roleId != 5) { // SI no es cliente el tipo de usuario, error
+    if (roleId != 5) {
         const error = new Error('No tiene el rol necesario para acceder acá')
         error.statusCode = 403; // Forbidden
         throw error;
