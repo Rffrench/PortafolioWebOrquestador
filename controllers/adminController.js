@@ -1,5 +1,7 @@
-const axios = require('axios');
+// Administration controller
 
+const axios = require('axios');
+const checkRoles = require('../util/checkRoles'); // archivo importado que tiene funciones para chequear cada rol
 
 // CLIENTES
 
@@ -219,6 +221,14 @@ exports.deleteProduct = (req, res, next) => {
 
 // MESAS
 
+// Vista gestión de mesas
+exports.getTablesView = (req, res, next) => {
+    checkRoles.checkIfWaiter(req.roleId); // si no tiene el rol correcto lanza error
+    next(); // continua a getTables pq son la misma ruta >> router.get('/tables')
+
+    //res.status(200).send('Cliente autorizado con ID: ' + req.userId);
+}
+
 exports.getTables = (req, res, next) => {
     axios.get(`${process.env.ADMIN}/tables`)
         .then(response => {
@@ -284,18 +294,20 @@ exports.postTable = (req, res, next) => {
         })
 
 }
-
+// Modificar mesa o asignarla a un usuario
 exports.putTable = (req, res, next) => {
 
     const tableId = req.params.tableId;
-    const [capacity, isAvailable, userId] = [req.body.capacity, req.body.isAvailable, req.body.userId];
+    const [capacity, isAvailable, customerId, waiterId] = [req.body.capacity, req.body.isAvailable, req.body.customerId, req.body.waiterId];
 
 
     axios.put(`${process.env.ADMIN}/tables/${tableId}`,
         {
+            // some fields can be null
             capacity: capacity,
             isAvailable: isAvailable,
-            userId: userId
+            customerId: customerId,
+            waiterId: waiterId
         })
         .then(response => {
             res.status(201).json(response.data);

@@ -40,3 +40,10 @@ exports.checkIfKitchen = (roleId) => {
     }
 }
 
+exports.checkIfWaiter = (roleId) => {
+    if (roleId != 6) {
+        const error = new Error('No tiene el rol necesario para acceder acá')
+        error.statusCode = 403; // Forbidden
+        throw error;
+    }
+}

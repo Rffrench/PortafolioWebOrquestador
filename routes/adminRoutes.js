@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const adminController = require('../controllers/adminController');
+const isAuth = require('../middleware/isAuth');
 
 // Customers
 router.get('/customers', adminController.getCustomers);
@@ -16,6 +17,8 @@ router.post('/products/', adminController.postProduct);
 router.put('/products/:productId', adminController.putProduct);
 router.delete('/products/:productId', adminController.deleteProduct);
 
+// Rutas vistas mesas para ver si se le carga la pag al mesero o no
+router.get('/tables', isAuth, adminController.getTablesView); // next() continua abajo
 // CRUD Mesas
 router.get('/tables', adminController.getTables);
 router.get('/tables/:tableId', adminController.getTable);
