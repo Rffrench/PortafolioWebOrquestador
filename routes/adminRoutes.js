@@ -26,4 +26,11 @@ router.post('/tables', adminController.postTable);
 router.put('/tables/:tableId', adminController.putTable);
 router.delete('/tables/:tableId', adminController.deleteTable);
 
+//Recipes
+router.get('/recipes/menu', isAuth, adminController.getRecipesMenu);
+router.get('/recipes/new', isAuth, adminController.getRecipesView);
+router.get('/recipes', adminController.getRecipes);
+router.post('/recipes', adminController.postRecipe);
+router.put('/recipes/:recipeId',adminController.putRecipe);
+router.delete('/recipes/:recipeId',adminController.deleteRecipe);
 module.exports = router;
