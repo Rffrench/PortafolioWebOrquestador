@@ -11,6 +11,8 @@ router.put('/customers/:userId', adminController.putCustomer);
 router.delete('/customers/:userId', adminController.deleteCustomer);
 
 // Products
+router.get('/products', isAuth, adminController.getProductsMenu);
+router.get('/products/new', isAuth, adminController.getProductsView);
 router.get('/products', adminController.getProducts);
 router.get('/products/:productId', adminController.getProduct);
 router.post('/products/', adminController.postProduct);

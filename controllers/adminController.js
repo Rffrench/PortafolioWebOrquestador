@@ -101,6 +101,19 @@ exports.deleteCustomer = (req, res, next) => {
 
 // PRODUCTOS
 
+exports.getProductsMenu = (req, res, next) => {
+    checkRoles.checkIfWarehouse(req.roleId); // si no tiene el rol correcto lanza error
+    next();
+}
+
+exports.getProductsView = (req, res, next) => {
+    checkRoles.checkIfWarehouse(req.roleId); // si no tiene el rol correcto lanza error
+    res.status(200).send('Bodeguero autorizado con ID: ' + req.userId);
+}
+
+
+
+
 exports.getProducts = (req, res, next) => {
     axios.get(`${process.env.ADMIN}/products`)
         .then(response => {
