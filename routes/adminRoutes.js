@@ -17,7 +17,7 @@ router.post('/products/', adminController.postProduct);
 router.put('/products/:productId', adminController.putProduct);
 router.delete('/products/:productId', adminController.deleteProduct);
 
-// Rutas vistas mesas para ver si se le carga la pag al mesero o no
+// Rutas vistas mesas para ver si se le carga la pag al mesero o no (NO APLICA YA)
 router.get('/tables', isAuth, adminController.getTablesView); // next() continua abajo
 // CRUD Mesas
 router.get('/tables', adminController.getTables);

@@ -13,7 +13,8 @@ const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const restaurantRoutes = require('./routes/restaurantRoutes');
 
-// Adding middleware (these are executed for every request)
+
+//Middleware
 app.use(bodyParser.json());
 app.use(cors());
 
