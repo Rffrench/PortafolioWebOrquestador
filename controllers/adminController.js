@@ -7,7 +7,7 @@ const checkRoles = require('../util/checkRoles'); // archivo importado que tiene
 
 exports.getInventoryOrdersView= (req, res, next) => {
     checkRoles.checkIfWarehouse(req.roleId); 
-    res.status(200).send('Bodeguero autorizado con ID: ' + req.userId);
+    next();
 }
 
 exports.getInventoryOrders = (req, res, next) => {
