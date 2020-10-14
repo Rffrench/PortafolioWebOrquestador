@@ -36,3 +36,8 @@ router.post('/recipes', adminController.postRecipe);
 router.put('/recipes/:recipeId',adminController.putRecipe);
 router.delete('/recipes/:recipeId',adminController.deleteRecipe);
 module.exports = router;
+
+// Inventory Orders
+router.get('/inventoryOrders', isAuth, adminController.getInventoryOrdersView);
+router.get('/inventoryOrders', adminController.getInventoryOrders);
+router.post('/inventoryOrders', adminController.postInventoryOrder);

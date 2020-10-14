@@ -3,6 +3,58 @@
 const axios = require('axios');
 const checkRoles = require('../util/checkRoles'); // archivo importado que tiene funciones para chequear cada rol
 
+//Ordenes de inventario
+
+exports.getInventoryOrdersView= (req, res, next) => {
+    checkRoles.checkIfWarehouse(req.roleId); 
+    res.status(200).send('Bodeguero autorizado con ID: ' + req.userId);
+}
+
+exports.getInventoryOrders = (req, res, next) => {
+    axios.get(`${process.env.ADMIN}/inventoryOrders`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; 
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
+
+exports.postInventoryOrder = (req, res, next) => {
+    const [description, warehouseId] = [req.body.description, req.body.warehouseId];
+
+
+    axios.post(`${process.env.ADMIN}/inventoryOrders`,
+        {
+            description:description,
+            warehouseId: warehouseId
+        })
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status;
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+
+}
+
+
 // CLIENTES
 
 
