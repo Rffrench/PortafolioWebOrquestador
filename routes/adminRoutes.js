@@ -41,3 +41,9 @@ module.exports = router;
 router.get('/inventoryOrders', isAuth, adminController.getInventoryOrdersView);
 router.get('/inventoryOrders', adminController.getInventoryOrders);
 router.post('/inventoryOrders', adminController.postInventoryOrder);
+
+// Order Products
+router.get('/order-products', isAuth, adminController.getInventoryOrdersView);
+router.get('/order-products/:order',isAuth,adminController.getOrderProducts);
+router.put('/order-products/:order',adminController.putOrderStatus);
+router.delete('/order-products/:order/:product',adminController.deleteOrderProduct);

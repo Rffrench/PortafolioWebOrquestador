@@ -2,7 +2,76 @@
 
 const axios = require('axios');
 const checkRoles = require('../util/checkRoles'); // archivo importado que tiene funciones para chequear cada rol
+// Productos de Ordenes
 
+exports.deleteOrderProduct = (req, res, next) => {
+    const order = req.params.order; 
+    const product = req.params.product;
+
+    axios.delete(`${process.env.ADMIN}/order-products/${order}/${product}`)
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status;
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+
+}
+
+exports.putOrderStatus = (req, res, next) => {
+
+    const order = req.params.order;
+
+
+    axios.put(`${process.env.ADMIN}/order-products/${order}`,)
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status;
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+
+}
+
+exports.getOrderProductsView = (req, res, next) => {
+    checkRoles.checkIfWarehouse(req.roleId); 
+    next();
+}
+
+exports.getOrderProducts = (req, res, next) => {
+    const order = req.params.order;
+    checkRoles.checkIfWarehouse(req.roleId); 
+    axios.get(`${process.env.ADMIN}/order-products/${order}`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
 //Ordenes de inventario
 
 exports.getInventoryOrdersView= (req, res, next) => {
