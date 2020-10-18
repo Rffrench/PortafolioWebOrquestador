@@ -47,3 +47,5 @@ router.get('/order-products', isAuth, adminController.getInventoryOrdersView);
 router.get('/order-products/:order',isAuth,adminController.getOrderProducts);
 router.put('/order-products/:order',adminController.putOrderStatus);
 router.delete('/order-products/:order/:product',adminController.deleteOrderProduct);
+router.get('/order-products/:order', adminController.getProducts);
+router.post('/order-products/new',adminController.postOrderProduct);    

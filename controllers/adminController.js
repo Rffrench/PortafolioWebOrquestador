@@ -4,6 +4,35 @@ const axios = require('axios');
 const checkRoles = require('../util/checkRoles'); // archivo importado que tiene funciones para chequear cada rol
 // Productos de Ordenes
 
+
+
+exports.postOrderProduct = (req, res, next) => {
+    const [order, product, quantity] = [req.body.order, req.body.product, req.body.quantity];
+
+
+    axios.post(`${process.env.ADMIN}/order-products/New`,
+        {
+            order:order,
+            product:product,
+            quantity:quantity
+        })
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status;
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+
+}
+
+
 exports.deleteOrderProduct = (req, res, next) => {
     const order = req.params.order; 
     const product = req.params.product;
