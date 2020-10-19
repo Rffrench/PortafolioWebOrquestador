@@ -45,6 +45,7 @@ router.post('/inventoryOrders', adminController.postInventoryOrder);
 // Order Products
 router.get('/order-products', isAuth, adminController.getInventoryOrdersView);
 router.get('/order-products/:order',isAuth,adminController.getOrderProducts);
+router.put('/order-products/update',adminController.putOrderProduct);
 router.put('/order-products/:order',adminController.putOrderStatus);
 router.delete('/order-products/:order/:product',adminController.deleteOrderProduct);
 router.get('/order-products/:order', adminController.getProducts);
