@@ -40,6 +40,7 @@ module.exports = router;
 // Inventory Orders
 router.get('/inventoryOrders', isAuth, adminController.getInventoryOrdersView);
 router.get('/inventoryOrders', adminController.getInventoryOrders);
+router.get('/inventoryOrder/:order', adminController.getInventoryOrder);
 router.post('/inventoryOrders', adminController.postInventoryOrder);
 
 // Order Products
