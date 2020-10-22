@@ -11,8 +11,6 @@ router.put('/customers/:userId', adminController.putCustomer);
 router.delete('/customers/:userId', adminController.deleteCustomer);
 
 // Products
-router.get('/products', isAuth, adminController.getProductsMenu);
-router.get('/products/new', isAuth, adminController.getProductsView);
 router.get('/products', adminController.getProducts);
 router.get('/products/:productId', adminController.getProduct);
 router.post('/products/', adminController.postProduct);
@@ -28,26 +26,5 @@ router.post('/tables', adminController.postTable);
 router.put('/tables/:tableId', adminController.putTable);
 router.delete('/tables/:tableId', adminController.deleteTable);
 
-//Recipes
-router.get('/recipes/menu', isAuth, adminController.getRecipesMenu);
-router.get('/recipes/new', isAuth, adminController.getRecipesView);
-router.get('/recipes', adminController.getRecipes);
-router.post('/recipes', adminController.postRecipe);
-router.put('/recipes/:recipeId',adminController.putRecipe);
-router.delete('/recipes/:recipeId',adminController.deleteRecipe);
+  
 module.exports = router;
-
-// Inventory Orders
-router.get('/inventoryOrders', isAuth, adminController.getInventoryOrdersView);
-router.get('/inventoryOrders/:user', adminController.getInventoryOrders);
-router.get('/inventoryOrder/:order', adminController.getInventoryOrder);
-router.post('/inventoryOrders', adminController.postInventoryOrder);
-
-// Order Products
-router.get('/order-products', isAuth, adminController.getInventoryOrdersView);
-router.get('/order-products/:order',isAuth,adminController.getOrderProducts);
-router.put('/order-products/update',adminController.putOrderProduct);
-router.put('/order-products/:order',adminController.putOrderStatus);
-router.delete('/order-products/:order/:product',adminController.deleteOrderProduct);
-router.get('/order-products/:order', adminController.getProducts);
-router.post('/order-products/new',adminController.postOrderProduct);    
