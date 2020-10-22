@@ -155,7 +155,8 @@ exports.getInventoryOrder = (req, res, next) =>{
 }
 
 exports.getInventoryOrders = (req, res, next) => {
-    axios.get(`${process.env.ADMIN}/inventoryOrders`)
+    const user = req.params.user;
+    axios.get(`${process.env.ADMIN}/inventoryOrders/${user}`)
         .then(response => {
             console.log(response.data);
 
