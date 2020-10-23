@@ -1,0 +1,350 @@
+// Administration controller
+
+const axios = require('axios');
+const checkRoles = require('../util/checkRoles'); // archivo importado que tiene funciones para chequear cada rol
+// Productos de Ordenes
+
+
+exports.putOrderProduct = (req, res, next) => {
+
+    const [order, product, quantity] = [req.body.order, req.body.product, req.body.quantity]
+
+
+    axios.put(`${process.env.WAREHOUSE}/order-products/update`,
+    {
+        order:order,
+        product:product,
+        quantity:quantity
+    })
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status;
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+
+}
+exports.postOrderProduct = (req, res, next) => {
+    const [order, product, quantity] = [req.body.order, req.body.product, req.body.quantity];
+
+
+    axios.post(`${process.env.WAREHOUSE}/order-products/new`,
+        {
+            order:order,
+            product:product,
+            quantity:quantity
+        })
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status;
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+
+}
+
+
+exports.deleteOrderProduct = (req, res, next) => {
+    const order = req.params.order; 
+    const product = req.params.product;
+
+    axios.delete(`${process.env.WAREHOUSE}/order-products/${order}/${product}`)
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status;
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+
+}
+
+exports.putOrderStatus = (req, res, next) => {
+
+    const order = req.params.order;
+
+
+    axios.put(`${process.env.WAREHOUSE}/order-products/${order}`,)
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status;
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+
+}
+
+exports.getOrderProductsView = (req, res, next) => {
+    checkRoles.checkIfWarehouse(req.roleId); 
+    next();
+}
+
+exports.getOrderProducts = (req, res, next) => {
+    const order = req.params.order;
+    checkRoles.checkIfWarehouse(req.roleId); 
+    axios.get(`${process.env.WAREHOUSE}/order-products/${order}`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
+//Ordenes de inventario
+
+exports.getInventoryOrdersView= (req, res, next) => {
+    checkRoles.checkIfWarehouse(req.roleId); 
+    next();
+}
+
+exports.getInventoryOrder = (req, res, next) =>{
+    const order = req.params.order;
+    axios.get(`${process.env.WAREHOUSE}/inventoryOrder/${order}`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; 
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+
+}
+
+exports.getInventoryOrders = (req, res, next) => {
+    const user = req.params.user;
+    axios.get(`${process.env.WAREHOUSE}/inventoryOrders/${user}`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; 
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
+
+exports.postInventoryOrder = (req, res, next) => {
+    const [description, warehouseId] = [req.body.description, req.body.warehouseId];
+
+
+    axios.post(`${process.env.WAREHOUSE}/inventoryOrders`,
+        {
+            description:description,
+            warehouseId: warehouseId
+        })
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status;
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+
+}
+
+
+
+// PRODUCTOS
+
+exports.getProductsMenu = (req, res, next) => {
+    checkRoles.checkIfWarehouse(req.roleId); // si no tiene el rol correcto lanza error
+    next();
+}
+
+exports.getProductsView = (req, res, next) => {
+    checkRoles.checkIfWarehouse(req.roleId); // si no tiene el rol correcto lanza error
+    res.status(200).send('Bodeguero autorizado con ID: ' + req.userId);
+}
+
+
+
+
+exports.getProducts = (req, res, next) => {
+    axios.get(`${process.env.ADMIN}/products`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
+
+
+
+
+// RECETAS
+
+//Vista
+
+exports.getRecipesMenu = (req, res, next) => {
+    checkRoles.checkIfWarehouse(req.roleId); // si no tiene el rol correcto lanza error
+    res.status(200).send('Bodeguero autorizado con ID: ' + req.userId);
+}
+
+exports.getRecipesView = (req, res, next) => {
+    checkRoles.checkIfWarehouse(req.roleId); // si no tiene el rol correcto lanza error
+    res.status(200).send('Bodeguero autorizado con ID: ' + req.userId);
+}
+
+
+//CRUD
+exports.getRecipes = (req, res, next) => {
+    axios.get(`${process.env.WAREHOUSE}/recipes`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
+
+
+exports.postRecipe = (req, res, next) => {
+    const [name, description, cookingTime, userId] = [req.body.name, req.body.description, req.body.cookingTime, req.body.userId];  
+
+    axios.post(`${process.env.WAREHOUSE}/recipes`,
+        {
+            name: name,
+            description: description,
+            cookingTime: cookingTime,
+            userId: userId
+        })
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+
+}
+
+
+exports.putRecipe = (req, res, next) => {
+
+    const recipeId = req.params.recipeId;
+    const [name, description, cookingTime] = [req.body.name, req.body.description, req.body.cookingTime];
+
+
+    axios.put(`${process.env.WAREHOUSE}/recipes/${recipeId}`,
+        {
+            name: name,
+            description: description,
+            cookingTime: cookingTime
+        })
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+
+}
+
+exports.deleteRecipe = (req, res, next) => {
+    const recipeId = req.params.recipeId;
+
+    axios.delete(`${process.env.WAREHOUSE}/recipes/${recipeId}`)
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+
+}

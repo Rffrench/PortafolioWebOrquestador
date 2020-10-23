@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 4001
 // Routes
 const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const warehouseRoutes = require('./routes/warehouseRoutes');
 const restaurantRoutes = require('./routes/restaurantRoutes');
 
 
@@ -37,5 +38,6 @@ app.get('/', (req, res, next) => {
 app.use('/api/v1', restaurantRoutes); // ritas generales del restaurant y casi todo
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/admin', adminRoutes);
+app.use('/api/v1/warehouse', warehouseRoutes);
 
 app.listen(PORT);
