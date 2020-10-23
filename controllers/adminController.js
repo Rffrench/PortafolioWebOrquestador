@@ -5,7 +5,7 @@ const checkRoles = require('../util/checkRoles'); // archivo importado que tiene
 // Productos de Ordenes
 
 exports.deleteOrderProduct = (req, res, next) => {
-    const order = req.params.order; 
+    const order = req.params.order;
     const product = req.params.product;
 
     axios.delete(`${process.env.ADMIN}/order-products/${order}/${product}`)
@@ -30,7 +30,7 @@ exports.putOrderStatus = (req, res, next) => {
     const order = req.params.order;
 
 
-    axios.put(`${process.env.ADMIN}/order-products/${order}`,)
+    axios.put(`${process.env.ADMIN}/order-products/${order}`)
         .then(response => {
             res.status(201).json(response.data);
         })
@@ -48,13 +48,13 @@ exports.putOrderStatus = (req, res, next) => {
 }
 
 exports.getOrderProductsView = (req, res, next) => {
-    checkRoles.checkIfWarehouse(req.roleId); 
+    checkRoles.checkIfWarehouse(req.roleId);
     next();
 }
 
 exports.getOrderProducts = (req, res, next) => {
     const order = req.params.order;
-    checkRoles.checkIfWarehouse(req.roleId); 
+    checkRoles.checkIfWarehouse(req.roleId);
     axios.get(`${process.env.ADMIN}/order-products/${order}`)
         .then(response => {
             console.log(response.data);
@@ -74,8 +74,8 @@ exports.getOrderProducts = (req, res, next) => {
 }
 //Ordenes de inventario
 
-exports.getInventoryOrdersView= (req, res, next) => {
-    checkRoles.checkIfWarehouse(req.roleId); 
+exports.getInventoryOrdersView = (req, res, next) => {
+    checkRoles.checkIfWarehouse(req.roleId);
     next();
 }
 
@@ -89,7 +89,7 @@ exports.getInventoryOrders = (req, res, next) => {
         .catch(err => {
             console.log(err.response);
             if (err.response) {
-                err.statusCode = err.response.status; 
+                err.statusCode = err.response.status;
                 next(err);
             } else {
                 err.statusCode = 500;
@@ -104,7 +104,7 @@ exports.postInventoryOrder = (req, res, next) => {
 
     axios.post(`${process.env.ADMIN}/inventoryOrders`,
         {
-            description:description,
+            description: description,
             warehouseId: warehouseId
         })
         .then(response => {
@@ -516,7 +516,7 @@ exports.getRecipes = (req, res, next) => {
 
 
 exports.postRecipe = (req, res, next) => {
-    const [name, description, cookingTime, userId] = [req.body.name, req.body.description, req.body.cookingTime, req.body.userId];  
+    const [name, description, cookingTime, userId] = [req.body.name, req.body.description, req.body.cookingTime, req.body.userId];
 
     axios.post(`${process.env.ADMIN}/recipes`,
         {

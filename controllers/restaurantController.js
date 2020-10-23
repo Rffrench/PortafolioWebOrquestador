@@ -139,7 +139,7 @@ exports.deleteReservation = (req, res, next) => {
 exports.getMenuItems = (req, res, next) => {
     axios.get(`${process.env.RESTAURANT}/menu`)
         .then(response => {
-            console.log(response.data);
+            //console.log(response.data);
 
             res.status(201).json(response.data);
         })
@@ -159,7 +159,7 @@ exports.getMenuItems = (req, res, next) => {
 exports.getMenuItemsImages = (req, res, next) => {
     axios.get(`${process.env.RESTAURANT}/menu/images`, { responseType: 'stream' }) // Tiene que ser stream !! arraybuffer no sirve aca pq se tiene que seguir anidando. Como es objecto Stream se puede usar pipe() para pasar el output como input a la response
         .then(response => {
-            console.log(response.data);
+            //console.log(response.data);
             response.data.pipe(res); // Se anida el zip y se devuelve
 
             //res.status(201).sendFile(response.data); // NO SE PUEDE
@@ -183,7 +183,7 @@ exports.getMenuItem = (req, res, next) => {
 
     axios.get(`${process.env.RESTAURANT}/menu/${menuItemId}`)
         .then(response => {
-            console.log(response.data);
+            //console.log(response.data);
 
             res.status(201).json(response.data);
         })
@@ -322,5 +322,29 @@ exports.getOrdersMenu = (req, res, next) => {
 exports.getNewOrder = (req, res, next) => {
     checkRoles.checkIfCustomer(req.roleId);
     res.status(200).send('Cliente autorizado con ID: ' + req.userId);
+}
+
+exports.postOrder = (req, res, next) => {
+    const order = req.body.order;
+    const userId = req.body.userId;
+
+    //res.status(201).send('aaa')
+    axios.post(`${process.env.RESTAURANT}/orders`,
+        {
+            userId: userId,
+            order: order
+        })
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            if (err.response) {
+                err.statusCode = err.response.status;
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
 }
 
