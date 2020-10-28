@@ -10,7 +10,7 @@ exports.putOrderProduct = (req, res, next) => {
     const [order, product, quantity] = [req.body.order, req.body.product, req.body.quantity]
 
 
-    axios.put(`${process.env.WAREHOUSE}/order-products/update`,
+    axios.put(`${process.env.ADMIN}/warehouse/order-products/update`,
     {
         order:order,
         product:product,
@@ -35,7 +35,7 @@ exports.postOrderProduct = (req, res, next) => {
     const [order, product, quantity] = [req.body.order, req.body.product, req.body.quantity];
 
 
-    axios.post(`${process.env.WAREHOUSE}/order-products/new`,
+    axios.post(`${process.env.ADMIN}/warehouse/order-products/new`,
         {
             order:order,
             product:product,
@@ -62,7 +62,7 @@ exports.deleteOrderProduct = (req, res, next) => {
     const order = req.params.order; 
     const product = req.params.product;
 
-    axios.delete(`${process.env.WAREHOUSE}/order-products/${order}/${product}`)
+    axios.delete(`${process.env.ADMIN}/warehouse/order-products/${order}/${product}`)
         .then(response => {
             res.status(201).json(response.data);
         })
@@ -84,7 +84,7 @@ exports.putOrderStatus = (req, res, next) => {
     const order = req.params.order;
 
 
-    axios.put(`${process.env.WAREHOUSE}/order-products/${order}`,)
+    axios.put(`${process.env.ADMIN}/warehouse/order-products/${order}`,)
         .then(response => {
             res.status(201).json(response.data);
         })
@@ -109,7 +109,7 @@ exports.getOrderProductsView = (req, res, next) => {
 exports.getOrderProducts = (req, res, next) => {
     const order = req.params.order;
     checkRoles.checkIfWarehouse(req.roleId); 
-    axios.get(`${process.env.WAREHOUSE}/order-products/${order}`)
+    axios.get(`${process.env.ADMIN}/warehouse/order-products/${order}`)
         .then(response => {
             console.log(response.data);
 
@@ -135,7 +135,7 @@ exports.getInventoryOrdersView= (req, res, next) => {
 
 exports.getInventoryOrder = (req, res, next) =>{
     const order = req.params.order;
-    axios.get(`${process.env.WAREHOUSE}/inventoryOrder/${order}`)
+    axios.get(`${process.env.ADMIN}/warehouse/inventoryOrder/${order}`)
         .then(response => {
             console.log(response.data);
 
@@ -156,7 +156,7 @@ exports.getInventoryOrder = (req, res, next) =>{
 
 exports.getInventoryOrders = (req, res, next) => {
     const user = req.params.user;
-    axios.get(`${process.env.WAREHOUSE}/inventoryOrders/${user}`)
+    axios.get(`${process.env.ADMIN}/warehouse/inventoryOrders/${user}`)
         .then(response => {
             console.log(response.data);
 
@@ -178,7 +178,7 @@ exports.postInventoryOrder = (req, res, next) => {
     const [description, warehouseId] = [req.body.description, req.body.warehouseId];
 
 
-    axios.post(`${process.env.WAREHOUSE}/inventoryOrders`,
+    axios.post(`${process.env.ADMIN}/warehouse/inventoryOrders`,
         {
             description:description,
             warehouseId: warehouseId
@@ -255,7 +255,7 @@ exports.getRecipesView = (req, res, next) => {
 
 //CRUD
 exports.getRecipes = (req, res, next) => {
-    axios.get(`${process.env.WAREHOUSE}/recipes`)
+    axios.get(`${process.env.ADMIN}/warehouse/recipes`)
         .then(response => {
             console.log(response.data);
 
@@ -277,7 +277,7 @@ exports.getRecipes = (req, res, next) => {
 exports.postRecipe = (req, res, next) => {
     const [name, description, cookingTime, userId] = [req.body.name, req.body.description, req.body.cookingTime, req.body.userId];  
 
-    axios.post(`${process.env.WAREHOUSE}/recipes`,
+    axios.post(`${process.env.ADMIN}/warehouse/recipes`,
         {
             name: name,
             description: description,
@@ -307,7 +307,7 @@ exports.putRecipe = (req, res, next) => {
     const [name, description, cookingTime] = [req.body.name, req.body.description, req.body.cookingTime];
 
 
-    axios.put(`${process.env.WAREHOUSE}/recipes/${recipeId}`,
+    axios.put(`${process.env.ADMIN}/warehouse/recipes/${recipeId}`,
         {
             name: name,
             description: description,
@@ -332,7 +332,7 @@ exports.putRecipe = (req, res, next) => {
 exports.deleteRecipe = (req, res, next) => {
     const recipeId = req.params.recipeId;
 
-    axios.delete(`${process.env.WAREHOUSE}/recipes/${recipeId}`)
+    axios.delete(`${process.env.ADMIN}/warehouse/recipes/${recipeId}`)
         .then(response => {
             res.status(201).json(response.data);
         })
