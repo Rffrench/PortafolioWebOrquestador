@@ -10,7 +10,7 @@ exports.putOrderProduct = (req, res, next) => {
     const [order, product, quantity] = [req.body.order, req.body.product, req.body.quantity]
 
 
-    axios.put(`${process.env.ADMIN}/warehouse/order-products/update`,
+    axios.put(`${process.env.ADMIN}/warehouse/inventory-orders/products`,
     {
         order:order,
         product:product,
@@ -35,7 +35,7 @@ exports.postOrderProduct = (req, res, next) => {
     const [order, product, quantity] = [req.body.order, req.body.product, req.body.quantity];
 
 
-    axios.post(`${process.env.ADMIN}/warehouse/order-products/new`,
+    axios.post(`${process.env.ADMIN}/warehouse/inventory-orders/products`,
         {
             order:order,
             product:product,
@@ -62,7 +62,7 @@ exports.deleteOrderProduct = (req, res, next) => {
     const orderId = req.params.orderId; 
     const productId = req.params.productId;
 
-    axios.delete(`${process.env.ADMIN}/warehouse/order-products/${orderId}/${productId}`)
+    axios.delete(`${process.env.ADMIN}/warehouse/inventory-orders/products/${orderId}/${productId}`)
         .then(response => {
             res.status(201).json(response.data);
         })
@@ -81,10 +81,13 @@ exports.deleteOrderProduct = (req, res, next) => {
 
 exports.putOrderStatus = (req, res, next) => {
 
-    const orderId = req.params.orderId;
+    const orderId = req.body.orderId;
 
 
-    axios.put(`${process.env.ADMIN}/warehouse/order-products/${orderId}`,)
+    axios.put(`${process.env.ADMIN}/warehouse/inventory-orders`,
+    {
+        orderId:orderId
+    })
         .then(response => {
             res.status(201).json(response.data);
         })
@@ -108,7 +111,7 @@ exports.getOrderProductsView = (req, res, next) => {
 
 exports.getOrderProducts = (req, res, next) => {
     const orderId = req.params.orderId;
-    axios.get(`${process.env.ADMIN}/warehouse/order-products/${orderId}`)
+    axios.get(`${process.env.ADMIN}/warehouse/inventory-orders/products/${orderId}`)
         .then(response => {
             console.log(response.data);
 
@@ -139,7 +142,7 @@ exports.getInventoryOrderForm = (req, res, next) => {
 
 exports.getInventoryOrder = (req, res, next) =>{
     const orderId = req.params.orderId;
-    axios.get(`${process.env.ADMIN}/warehouse/inventoryOrder/${orderId}`)
+    axios.get(`${process.env.ADMIN}/warehouse/inventory-order/${orderId}`)
         .then(response => {
 
             res.status(201).json(response.data);
@@ -159,7 +162,7 @@ exports.getInventoryOrder = (req, res, next) =>{
 
 exports.getInventoryOrders = (req, res, next) => {
     const userId = req.params.userId;
-    axios.get(`${process.env.ADMIN}/warehouse/inventoryOrders/${userId}`)
+    axios.get(`${process.env.ADMIN}/warehouse/inventory-orders/${userId}`)
         .then(response => {
             console.log(response.data);
 
@@ -181,7 +184,7 @@ exports.postInventoryOrder = (req, res, next) => {
     const [description, warehouseId] = [req.body.description, req.body.warehouseId];
 
 
-    axios.post(`${process.env.ADMIN}/warehouse/inventoryOrders`,
+    axios.post(`${process.env.ADMIN}/warehouse/inventory-orders`,
         {
             description:description,
             warehouseId: warehouseId

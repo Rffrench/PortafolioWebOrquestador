@@ -15,20 +15,19 @@ router.delete('/recipes/:recipeId',warehouseController.deleteRecipe);
 module.exports = router;
 
 // Inventory Orders
-router.get('/inventoryOrders/:userId', isAuth, warehouseController.getInventoryOrdersView);
-router.get('/inventoryOrders/new', isAuth, warehouseController.getInventoryOrderForm);
-router.get('/inventoryOrders/:userId', warehouseController.getInventoryOrders);
-router.get('/inventoryOrder/:orderId', warehouseController.getInventoryOrder);
-router.post('/inventoryOrders', warehouseController.postInventoryOrder);
+router.get('/inventory-orders/:userId', isAuth, warehouseController.getInventoryOrdersView);
+router.get('/inventory-orders/new', isAuth, warehouseController.getInventoryOrderForm);
+router.get('/inventory-orders/:userId', warehouseController.getInventoryOrders);
+router.get('/inventory-order/:orderId', warehouseController.getInventoryOrder);
+router.post('/inventory-orders', warehouseController.postInventoryOrder);
 
 // Order Products
-router.get('/order-products', isAuth, warehouseController.getInventoryOrdersView);
-router.get('/order-products/:orderId',isAuth,warehouseController.getOrderProducts);
-router.put('/order-products/update',warehouseController.putOrderProduct);
-router.put('/order-products/:orderId',warehouseController.putOrderStatus);
-router.delete('/order-products/:orderId/:productId',warehouseController.deleteOrderProduct);
-router.get('/order-products/:orderId', warehouseController.getProducts);
-router.post('/order-products/new',warehouseController.postOrderProduct);    
+router.get('/inventory-orders/products', isAuth, warehouseController.getInventoryOrdersView);
+router.get('/inventory-orders/products/:orderId',isAuth,warehouseController.getOrderProducts);
+router.put('/inventory-orders/products',warehouseController.putOrderProduct);
+router.put('/inventory-orders',warehouseController.putOrderStatus);
+router.delete('/inventory-orders/products/:orderId/:productId',warehouseController.deleteOrderProduct);
+router.post('/inventory-orders/products',warehouseController.postOrderProduct);    
 
 
 // Products
