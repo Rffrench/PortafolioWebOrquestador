@@ -26,5 +26,13 @@ router.post('/tables', adminController.postTable);
 router.put('/tables/:tableId', adminController.putTable);
 router.delete('/tables/:tableId', adminController.deleteTable);
 
+
+//Ordenes de inventario
+router.get('/inventory-orders',adminController.getInventoryOrders);
+router.get('/inventory-orders/:orderId',adminController.getInventoryOrder);
+router.put('/inventory-orders/:orderId',adminController.putInventoryOrder);
+router.get('/inventory-orders/products/:orderId',adminController.getInventoryOrderProducts);
+
+
   
 module.exports = router;
