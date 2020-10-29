@@ -6,7 +6,7 @@ const checkRoles = require('../util/checkRoles'); // archivo importado que tiene
 
 //Ordenes de Inventario
 exports.getInventoryOrders = (req, res, next) => {
-    
+
     axios.get(`${process.env.ADMIN}/inventory-orders`)
         .then(response => {
             console.log(response.data);
@@ -16,7 +16,7 @@ exports.getInventoryOrders = (req, res, next) => {
         .catch(err => {
             console.log(err.response);
             if (err.response) {
-                err.statusCode = err.response.status; 
+                err.statusCode = err.response.status;
                 next(err);
             } else {
                 err.statusCode = 500;
@@ -24,7 +24,7 @@ exports.getInventoryOrders = (req, res, next) => {
             }
         })
 }
-exports.getInventoryOrder = (req, res, next) =>{
+exports.getInventoryOrder = (req, res, next) => {
     const orderId = req.params.orderId;
     axios.get(`${process.env.ADMIN}/inventory-orders/${orderId}`)
         .then(response => {
@@ -34,7 +34,7 @@ exports.getInventoryOrder = (req, res, next) =>{
         .catch(err => {
             console.log(err.response);
             if (err.response) {
-                err.statusCode = err.response.status; 
+                err.statusCode = err.response.status;
                 next(err);
             } else {
                 err.statusCode = 500;
@@ -69,7 +69,7 @@ exports.putInventoryOrder = (req, res, next) => {
     const orderId = req.params.orderId;
 
 
-    axios.put(`${process.env.ADMIN}/inventory-orders/${orderId}`,)
+    axios.put(`${process.env.ADMIN}/inventory-orders/${orderId}`)
         .then(response => {
             res.status(201).json(response.data);
         })
@@ -189,9 +189,34 @@ exports.deleteCustomer = (req, res, next) => {
 
 
 
+// Waiters
+exports.getWaiters = (req, res, next) => {
+    axios.get(`${process.env.ADMIN}/waiters`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
 
 
 
+
+
+
+
+
+// Products
 exports.getProducts = (req, res, next) => {
     axios.get(`${process.env.ADMIN}/products`)
         .then(response => {
