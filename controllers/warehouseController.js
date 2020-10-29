@@ -59,10 +59,10 @@ exports.postOrderProduct = (req, res, next) => {
 
 
 exports.deleteOrderProduct = (req, res, next) => {
-    const order = req.params.order; 
-    const product = req.params.product;
+    const orderId = req.params.orderId; 
+    const productId = req.params.productId;
 
-    axios.delete(`${process.env.ADMIN}/warehouse/order-products/${order}/${product}`)
+    axios.delete(`${process.env.ADMIN}/warehouse/order-products/${orderId}/${productId}`)
         .then(response => {
             res.status(201).json(response.data);
         })
@@ -81,10 +81,10 @@ exports.deleteOrderProduct = (req, res, next) => {
 
 exports.putOrderStatus = (req, res, next) => {
 
-    const order = req.params.order;
+    const orderId = req.params.orderId;
 
 
-    axios.put(`${process.env.ADMIN}/warehouse/order-products/${order}`,)
+    axios.put(`${process.env.ADMIN}/warehouse/order-products/${orderId}`,)
         .then(response => {
             res.status(201).json(response.data);
         })
@@ -107,9 +107,8 @@ exports.getOrderProductsView = (req, res, next) => {
 }
 
 exports.getOrderProducts = (req, res, next) => {
-    const order = req.params.order;
-    checkRoles.checkIfWarehouse(req.roleId); 
-    axios.get(`${process.env.ADMIN}/warehouse/order-products/${order}`)
+    const orderId = req.params.orderId;
+    axios.get(`${process.env.ADMIN}/warehouse/order-products/${orderId}`)
         .then(response => {
             console.log(response.data);
 
@@ -130,14 +129,18 @@ exports.getOrderProducts = (req, res, next) => {
 
 exports.getInventoryOrdersView= (req, res, next) => {
     checkRoles.checkIfWarehouse(req.roleId); 
+    
     next();
+}
+exports.getInventoryOrderForm = (req, res, next) => {
+    checkRoles.checkIfWarehouse(req.roleId); // si no tiene el rol correcto lanza error
+    res.status(200).send('Bodeguero autorizado con ID: ' + req.userId);
 }
 
 exports.getInventoryOrder = (req, res, next) =>{
-    const order = req.params.order;
-    axios.get(`${process.env.ADMIN}/warehouse/inventoryOrder/${order}`)
+    const orderId = req.params.orderId;
+    axios.get(`${process.env.ADMIN}/warehouse/inventoryOrder/${orderId}`)
         .then(response => {
-            console.log(response.data);
 
             res.status(201).json(response.data);
         })
@@ -155,8 +158,8 @@ exports.getInventoryOrder = (req, res, next) =>{
 }
 
 exports.getInventoryOrders = (req, res, next) => {
-    const user = req.params.user;
-    axios.get(`${process.env.ADMIN}/warehouse/inventoryOrders/${user}`)
+    const userId = req.params.userId;
+    axios.get(`${process.env.ADMIN}/warehouse/inventoryOrders/${userId}`)
         .then(response => {
             console.log(response.data);
 
@@ -203,15 +206,16 @@ exports.postInventoryOrder = (req, res, next) => {
 
 // PRODUCTOS
 
-exports.getProductsMenu = (req, res, next) => {
+exports.getProductsMenuView = (req, res, next) => {
     checkRoles.checkIfWarehouse(req.roleId); // si no tiene el rol correcto lanza error
-    next();
+    res.status(200).send('Bodeguero autorizado con ID: ' + req.userId);
 }
 
 exports.getProductsView = (req, res, next) => {
     checkRoles.checkIfWarehouse(req.roleId); // si no tiene el rol correcto lanza error
-    res.status(200).send('Bodeguero autorizado con ID: ' + req.userId);
+    next();
 }
+
 
 
 
