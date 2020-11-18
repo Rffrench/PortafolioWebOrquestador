@@ -4,7 +4,6 @@ require('dotenv').config(); // .env files
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
 const app = express();
 const PORT = process.env.PORT || 4001
 
@@ -41,4 +40,17 @@ app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/warehouse', warehouseRoutes);
 app.use('/api/v1/finance', financeRoutes);
 
-app.listen(PORT);
+const server = app.listen(PORT, function () {
+    console.log('Orchestrator running on port: '+PORT);
+})
+
+const io = require("socket.io")(server, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    }
+  });
+
+  app.set('io',io);
+
+
