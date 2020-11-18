@@ -50,7 +50,7 @@ const io = require("socket.io")(server, {
       methods: ["GET", "POST"]
     }
   });
-
+  //Se deja en el contexto de la app el socket
   app.set('io',io);
 
 
