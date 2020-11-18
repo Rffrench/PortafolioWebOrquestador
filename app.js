@@ -13,7 +13,7 @@ const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const warehouseRoutes = require('./routes/warehouseRoutes');
 const restaurantRoutes = require('./routes/restaurantRoutes');
-
+const financeRoutes = require('./routes/financeRoutes');
 
 //Middleware
 app.use(bodyParser.json());
@@ -39,5 +39,6 @@ app.use('/api/v1', restaurantRoutes); // ritas generales del restaurant y casi t
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/warehouse', warehouseRoutes);
+app.use('/api/v1/finance', financeRoutes);
 
 app.listen(PORT);
