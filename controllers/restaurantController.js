@@ -88,6 +88,25 @@ exports.getReservations = (req, res, next) => {
         })
 }
 
+exports.getTodayReservations = (req, res, next) => {
+    axios.get(`${process.env.RESTAURANT}/reservations/today`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
+
 exports.getReservation = (req, res, next) => {
     const userId = req.params.userId;
 
