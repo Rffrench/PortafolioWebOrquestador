@@ -11,6 +11,30 @@ const Reservation = require('../models/reservationsModel');
 const MenuItem = require('../models/menuItemModel');
 
 
+
+
+
+/*const io = require('../app.js').io;
+
+
+io.on('connection', function(socket) {
+    io.emit('addition of connected user', socket.id);
+
+    const username = (socket.id).toString().substr(0, 5);
+    const roomname = `room ${username}`;
+    socket.join(roomname);
+    console.log('user connected to', roomname);
+
+    const time = (new Date).toLocaleTimeString();
+    
+    socket.json.send({
+        'event': 'connected',
+        'time': time,
+        'socketId': socket.id,
+        'message': `Hello, ${username}! Please ask me anything you want`,
+    });
+});*/
+
 // RESERVAS
 // Vistas Reservas
 exports.getReservationsMenu = (req, res, next) => {
@@ -64,6 +88,25 @@ exports.getReservations = (req, res, next) => {
         })
 }
 
+exports.getTodayReservations = (req, res, next) => {
+    axios.get(`${process.env.RESTAURANT}/reservations/today`)
+        .then(response => {
+            console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
+
 exports.getReservation = (req, res, next) => {
     const userId = req.params.userId;
 
@@ -93,6 +136,11 @@ exports.postReservation = (req, res, next) => {
         reservation)
         .then(response => {
             res.status(201).json(response.data);
+            //Se obtiene del contexto de la app el socket
+            const io = req.app.get('io');
+            //Se envía a todas las conexiones un evento
+            io.emit('newReservation',reservation)
+            console.log("Socket msg enviado")
         })
         .catch(err => {
             console.log(err.response);
@@ -113,6 +161,8 @@ exports.deleteReservation = (req, res, next) => {
     axios.delete(`${process.env.RESTAURANT}/reservations/${userId}`)
         .then(response => {
             res.status(201).json(response.data);
+            const io = req.app.get('io');
+            io.emit('newReservation',"")
         })
         .catch(err => {
             console.log(err.response);
@@ -302,15 +352,6 @@ exports.deleteMenuItem = (req, res, next) => {
         })
 
 }
-
-
-
-
-
-
-
-
-
 
 // Orders
 

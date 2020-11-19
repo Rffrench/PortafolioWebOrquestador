@@ -30,6 +30,7 @@ router.get('/reservations/new', isAuth, restaurantController.getNewReservation);
 router.get('/reservations/cancel', isAuth, restaurantController.getCancelReservation);
 // CRD Reservas
 router.get('/reservations', restaurantController.getReservations);
+router.get('/reservations/today', restaurantController.getTodayReservations);
 router.post('/reservations', restaurantController.postReservation);
 router.get('/reservations/:userId', restaurantController.getReservation);
 router.delete('/reservations/:userId', restaurantController.deleteReservation);

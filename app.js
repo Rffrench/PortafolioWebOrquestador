@@ -4,7 +4,6 @@ require('dotenv').config(); // .env files
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-
 const app = express();
 const PORT = process.env.PORT || 4001
 
@@ -13,7 +12,7 @@ const authRoutes = require('./routes/authRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const warehouseRoutes = require('./routes/warehouseRoutes');
 const restaurantRoutes = require('./routes/restaurantRoutes');
-
+const financeRoutes = require('./routes/financeRoutes');
 
 //Middleware
 app.use(bodyParser.json());
@@ -39,5 +38,19 @@ app.use('/api/v1', restaurantRoutes); // ritas generales del restaurant y casi t
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/warehouse', warehouseRoutes);
+app.use('/api/v1/finance', financeRoutes);
 
-app.listen(PORT);
+const server = app.listen(PORT, function () {
+    console.log('Orchestrator running on port: '+PORT);
+})
+
+const io = require("socket.io")(server, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    }
+  });
+  //Se deja en el contexto de la app el socket
+  app.set('io',io);
+
+
