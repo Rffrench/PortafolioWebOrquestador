@@ -50,8 +50,11 @@ router.delete('/menu/:menuItemId', restaurantController.deleteMenuItem);
 // Rutas vistas ordenes
 router.get('/orders/menu', isAuth, restaurantController.getOrdersMenu);
 router.get('/orders/new', isAuth, restaurantController.getNewOrder)
+router.get('/orders/:userId/payments', isAuth, restaurantController.getPayOrder);
 router.get('/orders/:userId', restaurantController.getOrder);
+router.put('/orders/:userId', restaurantController.putOrderExtra);
 router.post('/orders', restaurantController.postOrder);
+
 
 
 

@@ -324,6 +324,19 @@ exports.getNewOrder = (req, res, next) => {
     res.status(200).send('Cliente autorizado con ID: ' + req.userId);
 }
 
+exports.getPayOrder = (req, res, next) => {
+    checkRoles.checkIfCustomer(req.roleId);
+
+    // Verificando q el ID del usuario sea el correcto
+    if (req.userId !== req.params.userId) {
+        const error = new Error('Usuario con otro ID al que se quiere acceder')
+        error.statusCode = 403; // Forbidden
+        throw error;
+    }
+
+    res.status(200).send('Cliente autorizado con ID: ' + req.userId);
+}
+
 exports.getOrder = (req, res, next) => {
     const userId = req.params.userId;
 
@@ -368,4 +381,30 @@ exports.postOrder = (req, res, next) => {
             }
         })
 }
+
+
+exports.putOrderExtra = (req, res, next) => {
+    const order = req.body.order;
+    const userId = req.params.userId;
+
+    //res.status(201).send('aaa')
+    axios.put(`${process.env.RESTAURANT}/orders/${userId}`,
+        {
+            order: order
+        })
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            if (err.response) {
+                err.statusCode = err.response.status;
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
+
+
 
