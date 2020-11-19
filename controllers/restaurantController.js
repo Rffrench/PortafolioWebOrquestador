@@ -161,6 +161,8 @@ exports.deleteReservation = (req, res, next) => {
     axios.delete(`${process.env.RESTAURANT}/reservations/${userId}`)
         .then(response => {
             res.status(201).json(response.data);
+            const io = req.app.get('io');
+            io.emit('newReservation',"")
         })
         .catch(err => {
             console.log(err.response);
