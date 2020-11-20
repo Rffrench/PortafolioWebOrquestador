@@ -450,5 +450,48 @@ exports.putOrderExtra = (req, res, next) => {
         })
 }
 
+exports.requestPayment = (req, res, next) => {
+    const orderId = req.params.orderId;
+
+    axios.get(`${process.env.RESTAURANT}/orders/pay/${orderId}`)
+        .then(response => {
+            //console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
+
+exports.closeCustomerOrder = (req, res, next) => {
+    const orderId = req.params.orderId;
+
+    axios.get(`${process.env.RESTAURANT}/orders/close/${orderId}`)
+        .then(response => {
+            //console.log(response.data);
+
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
+
+
 
 

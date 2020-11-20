@@ -55,8 +55,8 @@ router.get('/orders/:userId/payments', isAuth, restaurantController.getPayOrder)
 router.get('/orders/:userId', restaurantController.getOrder);
 router.put('/orders/:userId', restaurantController.putOrderExtra);
 router.post('/orders', restaurantController.postOrder);
-
-
-
+router.get('/orders/:orderId', restaurantController.getOrder);
+router.get('/orders/close/:orderId', restaurantController.closeCustomerOrder);
+router.get('/orders/pay/:orderId', restaurantController.requestPayment);
 
 module.exports = router;
