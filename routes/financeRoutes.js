@@ -7,4 +7,8 @@ const isAuth = require('../middleware/isAuth');
 router.get('/income', isAuth, financeController.getIncomeView);
 router.get('/income', financeController.getIncomeDates);
 router.get('/income/:month/:year', financeController.getDailyIncome);
+router.get('/customer-orders', financeController.getCustomerOrders);
+router.get('/customer-order/:orderId', financeController.getCustomerOrder);
+router.get('/customer-order/items/:orderId', financeController.getOrderItems);
+
 module.exports = router;
