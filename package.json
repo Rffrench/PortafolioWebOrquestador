@@ -26,7 +26,9 @@
     "express": "^4.17.1",
     "form-data": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
-    "multer": "^1.4.2",
-    "socket.io": "^3.0.2"
+    "multer": "^1.4.2"
+  },
+  "devDependencies": {
+    "socket.io": "^3.0.3"
   }
 }

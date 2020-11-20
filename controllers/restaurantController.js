@@ -130,7 +130,7 @@ exports.getReservation = (req, res, next) => {
 
 exports.postReservation = (req, res, next) => {
     const reservation = new Reservation(req.body.reservationDate, req.body.reservationTime, req.body.party, req.body.userId);
-
+    reservation.email = req.body.email; // adding the user email too
 
     axios.post(`${process.env.RESTAURANT}/reservations`,
         reservation)
@@ -139,7 +139,7 @@ exports.postReservation = (req, res, next) => {
             //Se obtiene del contexto de la app el socket
             const io = req.app.get('io');
             //Se envía a todas las conexiones un evento
-            io.emit('newReservation',reservation)
+            io.emit('newReservation', reservation)
             console.log("Socket msg enviado")
         })
         .catch(err => {
@@ -157,12 +157,15 @@ exports.postReservation = (req, res, next) => {
 
 exports.deleteReservation = (req, res, next) => {
     const userId = req.params.userId;
+    const email = req.query.email; // adding the user email too
 
-    axios.delete(`${process.env.RESTAURANT}/reservations/${userId}`)
+    axios.delete(`${process.env.RESTAURANT}/reservations/${userId}?email=${email}`)
         .then(response => {
+
             res.status(201).json(response.data);
             const io = req.app.get('io');
-            io.emit('newReservation',"")
+            io.emit('newReservation', "");
+
         })
         .catch(err => {
             console.log(err.response);
