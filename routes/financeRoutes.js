@@ -10,5 +10,6 @@ router.get('/income/:month/:year', financeController.getDailyIncome);
 router.get('/customer-orders', financeController.getCustomerOrders);
 router.get('/customer-order/:orderId', financeController.getCustomerOrder);
 router.get('/customer-order/items/:orderId', financeController.getOrderItems);
+router.post('/customer-orders/payment/cash/:orderId',financeController.payByCash);
 
 module.exports = router;
