@@ -450,6 +450,74 @@ exports.putOrderExtra = (req, res, next) => {
         })
 }
 
+exports.patchOrder = (req, res, next) => {
+    const userId = req.params.userId;
+    const attributes = req.body;
+
+
+    //res.status(201).send('aaa')
+    axios.patch(`${process.env.RESTAURANT}/orders/${userId}`, attributes)
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            if (err.response) {
+                err.statusCode = err.response.status;
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
+
+
+
+
+
+
+//PYAMENTS
+
+exports.postPayment = (req, res, next) => {
+    const userId = req.params.userId;
+    const email = req.body.email;
+    const paymentType = req.body.paymentType;
+    const tip = req.body.tip;
+
+
+    axios.post(`${process.env.RESTAURANT}/orders/${userId}/payments`,
+        {
+            email: email,
+            paymentType: paymentType,
+            tip: tip
+        })
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            if (err.response) {
+                err.statusCode = err.response.status;
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 exports.requestPayment = (req, res, next) => {
     const orderId = req.params.orderId;
 

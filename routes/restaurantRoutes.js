@@ -54,7 +54,17 @@ router.get('/orders/new', isAuth, restaurantController.getNewOrder)
 router.get('/orders/:userId/payments', isAuth, restaurantController.getPayOrder);
 router.get('/orders/:userId', restaurantController.getOrder);
 router.put('/orders/:userId', restaurantController.putOrderExtra);
+router.patch('/orders/:userId', restaurantController.patchOrder)
 router.post('/orders', restaurantController.postOrder);
+
+
+// Payments
+router.post('/orders/:userId/payments', restaurantController.postPayment);
+
+
+
+
+
 router.get('/orders/:orderId', restaurantController.getOrder);
 router.get('/orders/close/:orderId', restaurantController.closeCustomerOrder);
 router.get('/orders/pay/:orderId', restaurantController.requestPayment);
