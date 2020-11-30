@@ -381,6 +381,23 @@ exports.getPayOrder = (req, res, next) => {
     res.status(200).send('Cliente autorizado con ID: ' + req.userId);
 }
 
+exports.getOrders = (req, res, next) => {
+    axios.get(`${process.env.RESTAURANT}/orders`)
+        .then(response => {
+            res.status(201).json(response.data);
+        })
+        .catch(err => {
+            console.log(err.response);
+            if (err.response) {
+                err.statusCode = err.response.status; // se modifica el codigo del error porque el frontend va a recibir esto, sino sería un 500 siempre
+                next(err);
+            } else {
+                err.statusCode = 500;
+                next(err);
+            }
+        })
+}
+
 exports.getOrder = (req, res, next) => {
     const userId = req.params.userId;
 
@@ -483,6 +500,7 @@ exports.postPayment = (req, res, next) => {
     const email = req.body.email;
     const paymentType = req.body.paymentType;
     const tip = req.body.tip;
+
 
 
     axios.post(`${process.env.RESTAURANT}/orders/${userId}/payments`,
