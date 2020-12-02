@@ -66,6 +66,11 @@ exports.getDailyIncome = (req, res, next) => {
     })
 }
 
+exports.getCustomerOrdersView = (req, res, next) => {
+    checkRoles.checkIfFinance(req.roleId); 
+    next();
+}
+
 exports.getCustomerOrders = (req, res, next) => {     
     orderId= req.params.orderId;
     axios.get(`${process.env.ADMIN}/finance/customer-orders`)
@@ -85,6 +90,11 @@ exports.getCustomerOrders = (req, res, next) => {
         })
 }
 
+
+exports.getCustomerOrderView = (req, res, next) => {
+    checkRoles.checkIfFinance(req.roleId); 
+    next();
+}
 exports.getCustomerOrder = (req, res, next) => {     
     orderId= req.params.orderId;
     axios.get(`${process.env.ADMIN}/finance/customer-order/${orderId}`)
