@@ -422,7 +422,8 @@ exports.getOrder = (req, res, next) => {
 exports.postOrder = (req, res, next) => {
     const order = req.body.order;
     const userId = req.body.userId;
-
+    const io = req.app.get('io');
+            
     //res.status(201).send('aaa')
     axios.post(`${process.env.RESTAURANT}/orders`,
         {
@@ -431,6 +432,8 @@ exports.postOrder = (req, res, next) => {
         })
         .then(response => {
             res.status(201).json(response.data);
+            //message to cooks app
+            io.emit('newOrder', "");
         })
         .catch(err => {
             if (err.response) {
@@ -455,6 +458,9 @@ exports.putOrderExtra = (req, res, next) => {
         })
         .then(response => {
             res.status(201).json(response.data);
+            const io = req.app.get('io');
+            //Se envía a todas las conexiones un evento
+            io.emit('extraOrder', userId)
         })
         .catch(err => {
             if (err.response) {
